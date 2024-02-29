@@ -1,17 +1,20 @@
 import { useState } from "react";
 import "./App.css";
 
+const initialFormData = {
+  firstName: "",
+  lastName: "",
+  gender: "other",
+  terms: false,
+};
+
 function App() {
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    gender: "other",
-    terms: false,
-  });
+  const [userData, setUserData] = useState(initialFormData);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form submitted: ", { userData });
+    setUserData(initialFormData);
   };
 
   const handleChange = (event) => {
