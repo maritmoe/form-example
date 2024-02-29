@@ -2,31 +2,34 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [terms, setTerms] = useState(false);
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "other",
+    terms: false,
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userData = { firstName, lastName, gender, terms };
     console.log("Form submitted: ", { userData });
   };
 
-  const handleFirstNameInput = (event) => {
-    setFirstName(event.target.value);
-  };
+  const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
 
-  const handleLastNameInput = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handleGenderRadioInput = (event) => {
-    setGender(event.target.value);
-  };
-
-  const handleTermsCheckbox = (event) => {
-    setTerms(event.target.checked);
+    if (inputName === "firstName") {
+      setUserData({ ...userData, firstName: inputValue });
+    }
+    if (inputName === "lastName") {
+      setUserData({ ...userData, lastName: inputValue });
+    }
+    if (inputName === "gender") {
+      setUserData({ ...userData, gender: inputValue });
+    }
+    if (inputName === "terms") {
+      setUserData({ ...userData, terms: event.target.checked });
+    }
   };
 
   return (
@@ -37,16 +40,16 @@ function App() {
           id="firstName"
           type="text"
           name="firstName"
-          onChange={handleFirstNameInput}
-          value={firstName}
+          onChange={handleChange}
+          value={userData.firstName}
         />
         <label htmlFor="lastName">Last name:</label>
         <input
           id="lastName"
           type="text"
           name="lastName"
-          onChange={handleLastNameInput}
-          value={lastName}
+          onChange={handleChange}
+          value={userData.lastName}
         />
         <div>
           <input
@@ -54,8 +57,8 @@ function App() {
             type="radio"
             name="gender"
             value="female"
-            onChange={handleGenderRadioInput}
-            checked={gender === "female"}
+            onChange={handleChange}
+            checked={userData.gender === "female"}
           />
           <label htmlFor="female">Female</label>
           <input
@@ -63,8 +66,8 @@ function App() {
             type="radio"
             name="gender"
             value="male"
-            onChange={handleGenderRadioInput}
-            checked={gender === "male"}
+            onChange={handleChange}
+            checked={userData.gender === "male"}
           />
           <label htmlFor="male">Male</label>
           <input
@@ -72,8 +75,8 @@ function App() {
             type="radio"
             name="gender"
             value="other"
-            onChange={handleGenderRadioInput}
-            checked={gender === "other"}
+            onChange={handleChange}
+            checked={userData.gender === "other"}
           />
           <label htmlFor="other">Other</label>
         </div>
@@ -82,8 +85,8 @@ function App() {
             id="terms"
             type="checkbox"
             name="terms"
-            onChange={handleTermsCheckbox}
-            checked={terms}
+            onChange={handleChange}
+            checked={userData.terms}
           />
           <label htmlFor="terms">I accept the Terms and Conditions</label>
         </div>
